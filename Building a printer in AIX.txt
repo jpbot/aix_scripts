@@ -1,0 +1,32 @@
+/usr/lib/lpd/pio/etc/piomkjetd mkpq_jetdirect -p 'generic' -D pcl -q ‘<queue name>’ -h ‘<hostname>’ -x '9100'
+
+
+#/bin/ksh
+
+#
+# change settings to establish a generic queue
+#
+
+# no form feed after each file
+chvirprt -q $1 -d $2 -a _Z=!
+
+# no restore (reset) after print job
+chvirprt -q $1 -d $2 -a _J=!
+
+# no initialize printer
+chvirprt -q $1 -d $2 -a _j=!
+
+# user defined filter 1, /usr/local/bin/unix2dos.sh adds CR to LF (LF->CRLF)
+chvirprt -q $1 -d $2 -a f1=/usr/local/bin/unix2dos.sh
+
+# set print file type to passthrough
+chvirprt -q $1 -d $2 -a _d=p
+
+# use user defined filter 1
+chvirprt -q $1 -d $2 -a _f=1
+
+
+#
+# Print settings that we just changed
+#
+lsvirprt -q $1 -d $2 -a _Z -a _J -a _j -a _d -a _f -a f1
