@@ -6,4 +6,4 @@ Change syslogd config
 
 AIX Password Change
 -------------------
-When changing passwords for users which do not login with a terminal run 'pwdadm -c {userid}' to clear the reset password flag. 
+When changing passwords for users which do not login with a terminal run `pwdadm -c {userid}` to clear the reset password flag. 
